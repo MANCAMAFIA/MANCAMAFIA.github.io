@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Profile Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Fungsi untuk mengirim ide konten ke Telegram bot
+    async function submitContentIdea() {
+      const growid = document.getElementById("growid").value;
+      const world = document.getElementById("world").value;
+      const ideKonten = document.getElementById("ide-konten").value;
+
+      // Cek jika semua field terisi
+      if (!growid || !world || !ideKonten) {
+        alert("ISI MAS JANGAN DIKOSONGI.");
+        return;
+      }
+
+      // Token bot Telegram dan chat ID Anda
+      const botToken = '7611266319:AAFS2uMyVeSBkC1WrDH7Q2buoHgQz4-mGPI'; // Bot Token Anda
+      const chatId = '7141301127'; // Ganti dengan chat ID Anda
+
+      const message = `GROWID: ${growid}\nWORLD: ${world}\nIDE KONTEN: ${ideKonten}`;
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+      // Kirim permintaan ke API Telegram
+      try {
+        const response = await fetch(url);
+        const result = await response.json(); // Parse response as JSON
+        console.log("Telegram Response:", result); // Log the response
+
+        if (response.ok) {
+          document.getElementById("thank-you-message").style.display = 'block';
+          document.getElementById("content-idea-form").style.display = 'none'; // Sembunyikan form
+          startCountdown(); // Mulai hitung mundur untuk redirect
+        } else {
+          alert("Failed to send message. Error: " + result.description); // Tampilkan deskripsi error
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while sending your message.");
+      }
+    }
+
+    // Fungsi hitung mundur untuk "Back to Homepage"
+    function startCountdown() {
+      let countdown = 15;
+      const countdownElement = document.getElementById("countdown");
+
+      const interval = setInterval(() => {
+        countdown--;
+        countdownElement.textContent = `${countdown} detik tersisa...`;
+
+        if (countdown <= 0) {
+          clearInterval(interval);
+          window.location.href = '/'; // Ganti URL beranda jika perlu
+        }
+      }, 1000);
+    }
+  </script>
+</head>
+
+<body class="bg-black text-white flex flex-col items-center justify-center min-h-screen">
+  <!-- Form to submit content idea -->
+  <div id="content-idea-form" class="w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg">
+    <div class="flex items-center justify-center mb-4">
+      <!-- Manca MPS Logo -->
+      <img src="https://yt3.googleusercontent.com/tE2knNKRbDp59bo5IGVxGEEDO9zMXArbunY_YsO2yvv3W7F6HD7HI5sr47rrIaa3mfAsts6ZzA=s160-c-k-c0x00ffffff-no-rj" alt="Manca MPS Logo" class="h-12 w-12 mr-4" />
+      <h2 class="text-2xl font-bold text-center">Kirim Ide Konten</h2>
+    </div>
+
+    <form>
+      <div class="mb-4">
+        <label for="growid" class="block text-sm font-medium">GROWID</label>
+        <input id="growid" type="text" class="w-full mt-1 p-2 rounded bg-gray-700 text-white" placeholder="Masukkan GROWID" required />
+      </div>
+
+      <div class="mb-4">
+        <label for="world" class="block text-sm font-medium">WORLD</label>
+        <input id="world" type="text" class="w-full mt-1 p-2 rounded bg-gray-700 text-white" placeholder="Masukkan WORLD" required />
+      </div>
+
+      <div class="mb-4">
+        <label for="ide-konten" class="block text-sm font-medium">IDE KONTEN</label>
+        <textarea id="ide-konten" class="w-full mt-1 p-2 rounded bg-gray-700 text-white" placeholder="Masukkan ide konten menarik" required></textarea>
+      </div>
+
+      <button type="button" onclick="submitContentIdea()" class="w-full bg-blue-500 hover:bg-blue-400 text-white py-2 px-4 rounded-lg">
+        Kirim Ide Konten
+      </button>
+    </form>
+  </div>
+
+  <!-- HOST MAFIA PS Button -->
+  <div class="mt-6 w-full max-w-md">
+    <a href="https://growtopia.id" target="_blank" rel="noopener noreferrer">
+      <div class="bg-green-500 rounded-lg p-4 mb-4 flex items-center hover:bg-green-400 transition cursor-pointer">
+        <i class="fas fa-gamepad text-white text-2xl mr-4"></i>
+        <span class="text-white">HOST MAFIA PS</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- Thank you message after submission -->
+  <div id="thank-you-message" class="w-full max-w-md bg-green-700 p-6 rounded-lg shadow-lg text-center mt-6" style="display:none;">
+    <h2 class="text-2xl font-bold mb-4">Terimakasih telah mengirimkan ide konten!</h2>
+    <p>Anda akan kembali ke beranda dalam <span id="countdown">15 detik</span>.</p>
+  </div>
+
+  <!-- Optional additional section below -->
+  <div class="mt-8">
+    <div class="bg-gray-800 p-4 rounded-lg text-center">
+      <p class="text-gray-400">Temui kami di Discord:</p>
+      <a href="https://discord.com/channels/@me" target="_blank" class="text-blue-500 hover:underline">Chat ke Discord "JarzSigma"</a>
+    </div>
+
+    <div class="mt-4 bg-gray-800 p-4 rounded-lg text-center">
+      <p class="text-gray-400">Temukan kami di YouTube:</p>
+      <a href="https://www.youtube.com/@mancaps45" target="_blank" class="text-red-500 hover:underline">YouTube Channel</a>
+    </div>
+  </div>
+</body>
+
+</html>
