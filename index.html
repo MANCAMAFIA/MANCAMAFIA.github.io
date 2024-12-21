@@ -94,14 +94,24 @@
     </form>
   </div>
 
-  <!-- HOST MAFIA PS Button -->
+  <!-- HOST MCTPS Button -->
   <div class="mt-6 w-full max-w-md">
-    <a href="https://discord.gg/TYP2EA78E2" target="_blank" rel="noopener noreferrer">
-      <div class="bg-green-500 rounded-lg p-4 mb-4 flex items-center hover:bg-green-400 transition cursor-pointer">
-        <i class="fas fa-gamepad text-white text-2xl mr-4"></i>
-        <span class="text-white">HOST MAFIA PS</span>
-      </div>
-    </a>
+    <div class="bg-green-500 rounded-lg p-4 mb-4 flex items-center justify-between hover:bg-green-400 transition cursor-pointer">
+      <span class="text-white text-lg font-semibold">HOST MCTPS</span>
+      <button onclick="showHostOptions()" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-400">
+        Pilih
+      </button>
+    </div>
+    <!-- Modal for selecting host or discord -->
+    <div id="host-options" class="w-full max-w-md bg-gray-800 p-6 rounded-lg shadow-lg text-center mt-4 hidden">
+      <h3 class="text-xl font-bold mb-4">Pilih opsi</h3>
+      <button onclick="window.location.href='https://discord.gg/TYP2EA78E2'" class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg mb-4 hover:bg-blue-400">
+        Gabung Discord
+      </button>
+      <button onclick="window.location.href='https://download.gtpshost.com/mancatopia'" class="w-full bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-400">
+        Host
+      </button>
+    </div>
   </div>
 
   <!-- Thank you message after submission -->
@@ -122,6 +132,12 @@
       <a href="https://www.youtube.com/@mancaps45" target="_blank" class="text-red-500 hover:underline">YouTube Channel</a>
     </div>
   </div>
+
+  <script>
+    function showHostOptions() {
+      document.getElementById("host-options").classList.toggle("hidden");
+    }
+  </script>
 </body>
 
 </html>
